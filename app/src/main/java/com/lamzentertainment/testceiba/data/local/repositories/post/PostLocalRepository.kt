@@ -8,7 +8,15 @@ class PostLocalRepository : IPostRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPostsOfUserByUserId(): List<PostEntity> {
+    override suspend fun getPostsOfUserByUserId(userId: Int): List<PostEntity> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun savePosts(posts: List<PostEntity>): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun savePost(post: PostEntity): Boolean {
         TODO("Not yet implemented")
     }
 }
