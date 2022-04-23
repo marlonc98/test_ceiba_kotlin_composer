@@ -7,10 +7,11 @@ import com.lamzentertainment.testceiba.domain.repositories.IPostRepository
 import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
-class GetAllPostsUseCase {
-    suspend fun execute() : List<PostEntity> {
-        val localRepository: IPostRepository = PostLocalRepository()
-        val apiRepository : IPostRepository = PostApiRepository()
+class GetAllPostsUseCase (
+    private val localRepository: IPostRepository,
+    private val apiRepository : IPostRepository,
+    ){
+    suspend fun invoke() : List<PostEntity> {
         var postList: List<PostEntity> =  localRepository.getPosts()
         if (postList.isEmpty()) {
             postList = apiRepository.getPosts()
