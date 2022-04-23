@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.lamzentertainment.testceiba.ui.screens.home.HomeScreen
 import com.lamzentertainment.testceiba.ui.theme.TestCeibaTheme
-import com.lamzentertainment.testceiba.ui.utils.KHomeScreenTitle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

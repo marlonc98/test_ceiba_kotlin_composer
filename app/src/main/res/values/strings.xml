@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TestCeiba</string>
+    <string name="see_posts">VER PUBLICACIONES</string>
+    <string name="home_screen_title">Prueba de ingreso</string>
+    <string name="home_screen_user_hint">Buscar usuario</string>
+    <string name="message_no_results">List is empty</string>
 </resources>
