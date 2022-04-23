@@ -3,24 +3,24 @@ package com.lamzentertainment.testceiba.tests.repositories
 import com.lamzentertainment.testceiba.domain.entities.UserEntity
 import com.lamzentertainment.testceiba.domain.repositories.IUserRepository
 
-class UserLocalRepositoryUtest : IUserRepository {
+class UserApiRepositoryUtest : IUserRepository {
     override suspend fun getUsers(page: Int, word: String): List<UserEntity> {
         return listOf(
             UserEntity(
                 id = 1,
-                name = "Juan",
+                name = "Jorge",
                 phone = "123456789",
-                email = "juan@correo.com"),
+                email = "jorge@correo.com"),
             UserEntity(
                 id = 2,
-                name = "Pedro",
+                name = "Manuel",
                 phone = "123456789",
-                email = "pedro@correo.com"),
+                email = "manuel@correo.com"),
             UserEntity(
                 id = 3,
-                name = "Jaime",
+                name = "Federico",
                 phone = "123456789",
-                email = "jaime@correo.com"))
+                email = "ferico@correo.com"))
     }
 
     override suspend fun saveUser(user: UserEntity): Boolean {
