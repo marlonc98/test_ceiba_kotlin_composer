@@ -1,6 +1,7 @@
 package com.lamzentertainment.testceiba.data.local.repositories.post
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.lamzentertainment.testceiba.data.local.config.LocalSqlite
 import com.lamzentertainment.testceiba.data.local.config.tables.PostSqlite
@@ -52,11 +53,14 @@ class PostLocalRepository(private val context: Context) : IPostRepository {
         return try {
             val posts : MutableList<PostEntity> = mutableListOf()
             dbHelper.readableDatabase.rawQuery(sql, null).use {
-                val postGetted = PostLocalDto.toPost(it)
-                posts.add(postGetted)
+                while (it.moveToNext()){
+                    val postGetted = PostLocalDto.toPost(it)
+                    posts.add(postGetted)
+                }
             }
             posts.toList()
         }catch (e: Exception){
+            Log.e("UsersActivity", e.message?: "")
             listOf()
         }
     }

@@ -18,8 +18,11 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
 
     override suspend fun getUser(id: Int): UserEntity? {
         return try {
-            getFromSqlite("SELECT * FROM ${UserSqlite.TABLE_NAME} WHERE ${UserSqlite.COLUMN_ID} = $id").first()
+            val response = getFromSqlite("SELECT * FROM ${UserSqlite.TABLE_NAME} WHERE ${UserSqlite.COLUMN_ID} = $id").first()
+            Log.v("UserLocalRepository", "getUser: $response")
+            response
         }catch (e: Exception){
+            Log.e("UserLocalRepository", "getUser: ${e.message}")
             null
         }
     }
@@ -43,10 +46,8 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
 
     override suspend fun saveUsers(users: List<UserEntity>): Boolean {
         var responseFinal = true
-        Log.v("llamasql", "saveUsers")
         users.forEach{
             val response = saveUser(it)
-            Log.v("llamasql", "saveUsers: $response")
             if(!response){
                 responseFinal = false
             }
@@ -55,13 +56,9 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
     }
 
     private fun getFromSqlite(sql: String): List<UserEntity> {
-        Log.v("llamasql", "a")
         val dbHelper = LocalSqlite(context)
-        Log.v("llamasql", "b")
         return try {
-            Log.v("llamasql", "c")
             val users : MutableList<UserEntity> = mutableListOf()
-            Log.v("llamasql", "d")
             dbHelper.readableDatabase.rawQuery(sql, null).use {
                 while (it.moveToNext()){
                     val userGetted = UserLocalDto.toUser(it)

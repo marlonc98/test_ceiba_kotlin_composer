@@ -1,15 +1,21 @@
 package com.lamzentertainment.testceiba.ui.screens.posts
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lamzentertainment.testceiba.R
+import com.lamzentertainment.testceiba.data.local.repositories.post.PostLocalRepository
+import com.lamzentertainment.testceiba.data.local.repositories.user.UserLocalRepository
+import com.lamzentertainment.testceiba.data.remote.repositories.post.PostApiRepository
+import com.lamzentertainment.testceiba.data.remote.repositories.user.UserApiRepository
 import com.lamzentertainment.testceiba.domain.entities.UserEntity
 import com.lamzentertainment.testceiba.domain.use_cases.user.GetUserWithPostsUseCase
 import com.lamzentertainment.testceiba.tests.repositories.PostApiRepositoryUtest
@@ -22,20 +28,28 @@ import com.lamzentertainment.testceiba.ui.screens.posts.components.PostCardCompo
 import com.lamzentertainment.testceiba.ui.screens.posts.components.UserInPostCardComponent
 import com.lamzentertainment.testceiba.ui.theme.GreenCeiba700
 import com.lamzentertainment.testceiba.ui.theme.TestCeibaTheme
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun PostScreen(userId: Int) {
     var loaded by remember { mutableStateOf(false) }
     var user: UserEntity? by remember { mutableStateOf<UserEntity?>(null) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
     suspend fun getUserWithPosts() {
-        val temp = GetUserWithPostsUseCase(UserLocalRepositoryUtest(), UserApiRepositoryUtest(), PostLocalRepositoryUtest(), PostApiRepositoryUtest(), userId).invoke()
+        val temp = GetUserWithPostsUseCase(UserLocalRepository(context), UserApiRepository(), PostLocalRepository(context), PostApiRepositoryUtest(), userId).invoke()
         user = temp
         loaded = true
     }
 
-    LaunchedEffect(true){
+    coroutineScope.launch {
+        GlobalScope.launch {
         //get intent userId
         getUserWithPosts()
+     }
     }
     TestCeibaTheme {
         // A surface container using the 'background' color from the theme

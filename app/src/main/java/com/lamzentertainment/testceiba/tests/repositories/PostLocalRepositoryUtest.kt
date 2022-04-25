@@ -15,7 +15,7 @@ class PostLocalRepositoryUtest: IPostRepository {
     }
 
     override suspend fun savePosts(posts: List<PostEntity>): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override suspend fun savePost(post: PostEntity): Boolean {

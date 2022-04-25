@@ -33,7 +33,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 suspend fun getUsers(context : Context, word: String) : List<UserEntity> {
-    return  GetAllUsersUseCase(UserLocalRepository(context), UserApiRepositoryUtest(), 1, word).invoke()
+    return  GetAllUsersUseCase(UserLocalRepository(context), UserApiRepository(), 1, word).invoke()
 }
 
 

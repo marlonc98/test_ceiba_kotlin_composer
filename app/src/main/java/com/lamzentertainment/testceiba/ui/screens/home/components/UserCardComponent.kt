@@ -32,7 +32,7 @@ fun UserCardComponent(user: UserEntity) {
     val context = LocalContext.current
     val openUserDetail : (()->Unit) = {
         val intent = Intent(context, PostsActivity::class.java)
-        intent.putExtra("user", user.id)
+        intent.putExtra("id", user.id)
         context.startActivity(intent)
     }
     Card(

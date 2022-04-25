@@ -8,7 +8,7 @@ import org.json.JSONObject
 
 class PostSqlite(private val context: Context) {
     companion object{
-        const val TABLE_NAME = "users"
+        const val TABLE_NAME = "posts"
         const val COLUMN_ID = "id"
         const val COLUMN_USER_ID = "user_id"
         const val COLUMN_TITLE = "title"
@@ -19,7 +19,7 @@ class PostSqlite(private val context: Context) {
                     " $COLUMN_USER_ID INTEGER," +
                     " $COLUMN_TITLE TEXT," +
                     " $COLUMN_BODY TEXT," +
-                    " FOREIGN KEY ($COLUMN_USER_ID) REFERENCES ${UserSqlite.TABLE_NAME}(${UserSqlite.COLUMN_ID})"
+                    " FOREIGN KEY ($COLUMN_USER_ID) REFERENCES ${UserSqlite.TABLE_NAME}(${UserSqlite.COLUMN_ID}))"
         }
     }
 
