@@ -18,8 +18,10 @@ import com.lamzentertainment.testceiba.domain.entities.UserEntity
 import com.lamzentertainment.testceiba.domain.use_cases.user.GetAllUsersUseCase
 import com.lamzentertainment.testceiba.tests.repositories.UserApiRepositoryUtest
 import com.lamzentertainment.testceiba.tests.repositories.UserLocalRepositoryUtest
+import com.lamzentertainment.testceiba.ui.components.LoadingComponents
 import com.lamzentertainment.testceiba.ui.components.MessageNoResults
 import com.lamzentertainment.testceiba.ui.screens.home.components.UserCardComponent
+import com.lamzentertainment.testceiba.ui.screens.posts.components.UserInPostCardComponent
 import com.lamzentertainment.testceiba.ui.theme.GreenCeiba700
 import com.lamzentertainment.testceiba.ui.theme.TestCeibaTheme
 import kotlinx.coroutines.GlobalScope
@@ -27,32 +29,15 @@ import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreen() {
-    var listUsers by remember { mutableStateOf<List<UserEntity>>(listOf<UserEntity>()) }
+fun UsersScreen() {
+    var listUsers by remember { mutableStateOf<List<UserEntity>?>(null) }
     var searchWord by remember {
         mutableStateOf("")
     }
-    listUsers =  listOf(
-        UserEntity(
-            id = 1,
-            name = "Jorge",
-            phone = "123456789",
-            email = "jorge@correo.com"),
-        UserEntity(
-            id = 2,
-            name = "Manuel",
-            phone = "123456789",
-            email = "manuel@correo.com"),
-        UserEntity(
-            id = 3,
-            name = "Federico",
-            phone = "123456789",
-            email = "ferico@correo.com"))
 
     suspend fun getUsers() {
-        val temp = GetAllUsersUseCase(UserLocalRepositoryUtest(), UserApiRepositoryUtest(), 1, "").invoke()
+        val temp = GetAllUsersUseCase(UserLocalRepositoryUtest(), UserApiRepositoryUtest(), 1, searchWord).invoke()
             listUsers = temp
-        Log.v("HomeScreen", "listUsers: ${listUsers.size}")
     }
 
     LaunchedEffect(true){
@@ -84,9 +69,10 @@ fun HomeScreen() {
                         .fillMaxWidth()
                         .padding(16.dp))
                 Box(Modifier.padding(16.dp)) {
-                if (listUsers.isEmpty()) MessageNoResults()
-                else Column() {
-                        listUsers.map { user ->
+                    if (listUsers == null) LoadingComponents()
+                    else if (listUsers!!.isEmpty()) MessageNoResults()
+                    else Column() {
+                        listUsers!!.map { user ->
                             UserCardComponent(user)
                         }
                     }

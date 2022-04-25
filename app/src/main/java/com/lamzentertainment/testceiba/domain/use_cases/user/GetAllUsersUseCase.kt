@@ -1,6 +1,5 @@
 package com.lamzentertainment.testceiba.domain.use_cases.user
 
-import com.lamzentertainment.testceiba.domain.entities.PostEntity
 import com.lamzentertainment.testceiba.domain.entities.UserEntity
 import com.lamzentertainment.testceiba.domain.repositories.IUserRepository
 

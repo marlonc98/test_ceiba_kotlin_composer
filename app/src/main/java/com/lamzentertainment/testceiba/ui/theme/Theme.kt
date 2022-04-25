@@ -17,6 +17,7 @@ private val LightColorPalette = lightColors(
     primary = GreenCeiba500,
     primaryVariant = GreenCeiba700,
     secondary = Teal200,
+    background = Color(0xFFEEEEEE)
 
     /* Other default colors to override
     surface = Color.White,

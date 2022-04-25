@@ -14,7 +14,10 @@
         android:theme="@style/Theme.TestCeiba"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.screens.posts.PostsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.screens.home.UsersActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TestCeiba">

@@ -4,4 +4,6 @@
     <string name="home_screen_title">Prueba de ingreso</string>
     <string name="home_screen_user_hint">Buscar usuario</string>
     <string name="message_no_results">List is empty</string>
+    <string name="user_not_found">Usuario no encontrado</string>
+    <string name="posts_title">Publicaciones</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.lamzentertainment.testceiba.ui.screens.home.components
+package com.lamzentertainment.testceiba.ui.screens.posts.components
 
 import android.content.Intent
 import android.util.Log
@@ -11,7 +11,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -28,7 +27,7 @@ import com.lamzentertainment.testceiba.ui.screens.posts.PostsActivity
 import com.lamzentertainment.testceiba.ui.theme.GreenCeiba500
 
 @Composable
-fun UserCardComponent(user: UserEntity) {
+    fun UserInPostCardComponent(user: UserEntity) {
     val context = LocalContext.current
     val openUserDetail : (()->Unit) = {
         val intent = Intent(context, PostsActivity::class.java)
@@ -55,15 +54,6 @@ fun UserCardComponent(user: UserEntity) {
                 Icon(Icons.Filled.Email, "mail", tint = GreenCeiba500)
                 Spacer(Modifier.width(10.dp))
                 Text(text = user.email, overflow = TextOverflow.Ellipsis)
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.fillMaxWidth()) {
-                Text(text = stringResource(id = R.string.see_posts),
-                    textAlign = TextAlign.End,
-                    style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold, color = GreenCeiba500),
-                    modifier = Modifier.clickable {
-                        openUserDetail()
-                    })
             }
         }
     }

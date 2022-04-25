@@ -23,6 +23,15 @@ class UserApiRepositoryUtest : IUserRepository {
                 email = "ferico@correo.com"))
     }
 
+    override suspend fun getUser(id: Int): UserEntity? {
+        return null
+        return UserEntity(
+            id = 3,
+            name = "Federico",
+            phone = "123456789",
+            email = "ferico@correo.com")
+    }
+
     override suspend fun saveUser(user: UserEntity): Boolean {
         return true;
     }

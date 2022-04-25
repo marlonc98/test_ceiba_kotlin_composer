@@ -8,6 +8,10 @@ class UserApiRepository : IUserRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getUser(id: Int): UserEntity? {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun saveUser(user: UserEntity): Boolean {
         TODO("Not yet implemented")
     }
