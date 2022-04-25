@@ -19,10 +19,8 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
     override suspend fun getUser(id: Int): UserEntity? {
         return try {
             val response = getFromSqlite("SELECT * FROM ${UserSqlite.TABLE_NAME} WHERE ${UserSqlite.COLUMN_ID} = $id").first()
-            Log.v("UserLocalRepository", "getUser: $response")
             response
         }catch (e: Exception){
-            Log.e("UserLocalRepository", "getUser: ${e.message}")
             null
         }
     }
@@ -40,7 +38,6 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
                     user.phone))
             true
         }catch (e: Exception){
-            Log.e("llamasql", e.message?: "")
             false
         }    }
 
@@ -65,10 +62,8 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
                     users.add(userGetted)
                 }
             }
-            Log.v("llamasql", "e")
             users.toList()
         }catch (e: Exception){
-            Log.v("llamasql", e.message?:"un")
             listOf()
         }
     }

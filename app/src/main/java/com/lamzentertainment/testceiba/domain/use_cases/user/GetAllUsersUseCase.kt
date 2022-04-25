@@ -11,7 +11,6 @@ class GetAllUsersUseCase (
     private val word: String) {
     suspend fun invoke() : List<UserEntity> {
         var userList: List<UserEntity> = localRepository.getUsers(page, word)
-        Log.v("GetAllUsersUseCase", "Local: ${userList.size}")
         if (userList.isEmpty()) {
             userList = apiRepository.getUsers(page, word)
             if (userList.isNotEmpty()) {

@@ -60,7 +60,6 @@ class PostLocalRepository(private val context: Context) : IPostRepository {
             }
             posts.toList()
         }catch (e: Exception){
-            Log.e("UsersActivity", e.message?: "")
             listOf()
         }
     }

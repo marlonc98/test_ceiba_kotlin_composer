@@ -19,12 +19,10 @@ class GetUserWithPostsUseCase (
             val user = apiUserRepository.getUser(userId) ?: return null
         }
         var posts = user!!.getPosts(localPostRepository);
-        Log.v("GetUserWithPostsUseCase", "posts: ${posts.size}")
         if(posts.isEmpty()){
             posts = user!!.getPosts(apiPostRepository);
             if (posts.isNotEmpty()){
                 val response = localPostRepository.savePosts(posts)
-                Log.v("GetUserWithPostsUseCase", "posts saved: ${response}")
             }
         }
         return user;

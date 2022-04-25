@@ -18,15 +18,11 @@ class UserApiRepository : IUserRepository {
     }
 
     override suspend fun getUser(id: Int): UserEntity? {
-        Log.v("UserApiRepository", "getUser ${id}")
         val response: ResponseBody = HttpApi().get("/users?id=${id}") ?: return null
-        Log.v("UserApiRepository", response.string())
         return try{
             val userDto = Gson().fromJson<Array<UserApiDto>>(response.string(), UserApiDto::class.java)
-            Log.v("BUserApiRepository", userDto.toString())
             return userDto?.get(0)?.toUser()
         }catch (e: Exception){
-            Log.v("UserApiRepository", e.message?:"")
             null
         }
     }
