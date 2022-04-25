@@ -17,11 +17,11 @@ class HttpApi {
         val request: Request = Request.Builder()
             .url(relativeUrl)
             .build()
-        try {
+        return try {
             val response: Response = client.newCall(request).execute()
-            return response.body!!
+            response.body!!
         }catch (e: Exception){
-            return null
+            null
         }
     }
 }

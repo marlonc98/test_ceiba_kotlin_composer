@@ -1,5 +1,6 @@
 package com.lamzentertainment.testceiba.data.remote.repositories.user
 
+import android.util.Log
 import com.google.gson.Gson
 import com.lamzentertainment.testceiba.data.remote.dto.user.UserApiDto
 import com.lamzentertainment.testceiba.data.remote.dto.user.toUser
@@ -11,7 +12,8 @@ import okhttp3.ResponseBody
 class UserApiRepository : IUserRepository {
     override suspend fun getUsers(page: Int, word: String): List<UserEntity> {
         val response: ResponseBody = HttpApi().get("/users") ?: return listOf()
-        val usersDto = Gson().fromJson<List<UserApiDto>>(response!!.string(), Array<UserApiDto>::class.java)
+        val stringResponse = response.string()
+        val usersDto = Gson().fromJson<Array<UserApiDto>>(stringResponse, Array<UserApiDto>::class.java)
         return usersDto.map { it.toUser() }
     }
 

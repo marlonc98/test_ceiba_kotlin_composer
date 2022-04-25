@@ -5,6 +5,7 @@ import com.lamzentertainment.testceiba.domain.repositories.IUserRepository
 
 class UserLocalRepositoryUtest : IUserRepository {
     override suspend fun getUsers(page: Int, word: String): List<UserEntity> {
+        return listOf()
         return listOf(
             UserEntity(
                 id = 1,
@@ -24,6 +25,7 @@ class UserLocalRepositoryUtest : IUserRepository {
     }
 
     override suspend fun getUser(id: Int): UserEntity? {
+        return null
         return UserEntity(
             id = 3,
             name = "Jaime",

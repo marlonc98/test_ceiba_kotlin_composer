@@ -5,6 +5,7 @@ import com.lamzentertainment.testceiba.domain.repositories.IUserRepository
 
 class UserApiRepositoryUtest : IUserRepository {
     override suspend fun getUsers(page: Int, word: String): List<UserEntity> {
+        return listOf();
         return listOf(
             UserEntity(
                 id = 1,

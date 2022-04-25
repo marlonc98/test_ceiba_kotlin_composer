@@ -18,7 +18,7 @@ class UserSqlite(private val context: Context) {
                     " $COLUMN_ID INTEGER PRIMARY KEY," +
                     " $COLUMN_NAME TEXT," +
                     " $COLUMN_EMAIL TEXT," +
-                    " $COLUMN_PHONE TEXT"
+                    " $COLUMN_PHONE TEXT)"
         }
     }
 }

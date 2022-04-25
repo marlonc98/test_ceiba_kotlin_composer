@@ -1,6 +1,7 @@
 package com.lamzentertainment.testceiba.data.local.repositories.user
 
 import android.content.Context
+import android.util.Log
 import com.lamzentertainment.testceiba.data.local.config.LocalSqlite
 import com.lamzentertainment.testceiba.data.local.config.tables.PostSqlite
 import com.lamzentertainment.testceiba.data.local.config.tables.UserSqlite
@@ -27,7 +28,7 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
         return try {
             dbHelper.writableDatabase.execSQL("" +
                     "INSERT INTO ${UserSqlite.TABLE_NAME}" +
-                    " (${UserSqlite.COLUMN_NAME}, ${UserSqlite.COLUMN_EMAIL}," +
+                    " (${UserSqlite.COLUMN_ID}, ${UserSqlite.COLUMN_NAME}, ${UserSqlite.COLUMN_EMAIL}," +
                     " ${UserSqlite.COLUMN_PHONE})" +
                     " VALUES (?, ?, ?, ?)",
                 arrayOf(user.id,
@@ -36,13 +37,16 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
                     user.phone))
             true
         }catch (e: Exception){
+            Log.e("llamasql", e.message?: "")
             false
         }    }
 
     override suspend fun saveUsers(users: List<UserEntity>): Boolean {
         var responseFinal = true
+        Log.v("llamasql", "saveUsers")
         users.forEach{
             val response = saveUser(it)
+            Log.v("llamasql", "saveUsers: $response")
             if(!response){
                 responseFinal = false
             }
@@ -51,15 +55,23 @@ class UserLocalRepository(private val context: Context) : IUserRepository {
     }
 
     private fun getFromSqlite(sql: String): List<UserEntity> {
+        Log.v("llamasql", "a")
         val dbHelper = LocalSqlite(context)
+        Log.v("llamasql", "b")
         return try {
+            Log.v("llamasql", "c")
             val users : MutableList<UserEntity> = mutableListOf()
+            Log.v("llamasql", "d")
             dbHelper.readableDatabase.rawQuery(sql, null).use {
-                val userGetted = UserLocalDto.toUser(it)
-                users.add(userGetted)
+                while (it.moveToNext()){
+                    val userGetted = UserLocalDto.toUser(it)
+                    users.add(userGetted)
+                }
             }
+            Log.v("llamasql", "e")
             users.toList()
         }catch (e: Exception){
+            Log.v("llamasql", e.message?:"un")
             listOf()
         }
     }
